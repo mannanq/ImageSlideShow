@@ -56,7 +56,8 @@ public class HelloController  {
             try {
                 Files.find(dir, depth, (path, attribute) -> path.getFileName().toString().toLowerCase().endsWith(".jpg"))
                         .forEach(item -> {
-                            myStringList.add(item.toString());
+                                myStringList.add(String.valueOf(item));
+
                         });
             } catch (IOException e) {
                 e.printStackTrace();
