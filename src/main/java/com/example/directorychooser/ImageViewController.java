@@ -30,8 +30,8 @@ public class ImageViewController implements Initializable {
 
 
     public void displayImage() {
-        // first image
-        myImageView.setImage(myImage);
+//         first image
+//        myImageView.setImage(myImage);
 
         Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(5), event -> {
 
@@ -41,7 +41,8 @@ public class ImageViewController implements Initializable {
                 e.printStackTrace();
             }
             imageCounter++;
-            // transition nicely here!
+            System.out.println("count: " + imageCounter);
+            // transition nicely here! (timeline.pause() or something)
             if(imageCounter == myImageList.size()) {
                 imageCounter = 0;
             }
@@ -57,8 +58,8 @@ public class ImageViewController implements Initializable {
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
-
     }
+
 
     public void displayList() {
         System.out.println("image list exists: " + myImageList);

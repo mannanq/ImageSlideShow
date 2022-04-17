@@ -17,6 +17,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class HelloController  {
 
@@ -56,6 +57,7 @@ public class HelloController  {
             try {
                 Files.find(dir, depth, (path, attribute) -> path.getFileName().toString().toLowerCase().endsWith(".jpg"))
                         .forEach(item -> {
+                            System.out.println("file name is:" + item.getFileName());
                                 myStringList.add(String.valueOf(item));
 
                         });
@@ -65,19 +67,24 @@ public class HelloController  {
         }
         System.out.println("My list now contains: " + myStringList);
 
-// now pass this string list to image view controller class!
-
-
+        // sort the myStringList file in ascending order! here
+        List<String> sortedImageList = sortImageList(myStringList);
+        System.out.println("Sorted List is!!!: " + sortedImageList);
         FXMLLoader loader = new FXMLLoader(getClass().getResource("Slideshow.fxml"));
-        Parent root = (Parent) loader.load();
+        Parent root = loader.load();
         ImageViewController imageViewController = loader.getController();
-        imageViewController.setImageList(myStringList);
+        imageViewController.setImageList(sortedImageList);
         imageViewController.displayList();
         imageViewController.displayImage();
 
         stage = new Stage();
         stage.setScene(new Scene(root));
         stage.show();
+    }
+
+    List<String> sortImageList(List<String> imageList) {
+        List<String> sortedList = imageList.stream().sorted().collect(Collectors.toList());
+        return sortedList;
     }
 
 //    public void switchToSlideShow(ActionEvent e) throws IOException {
