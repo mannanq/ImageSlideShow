@@ -75,14 +75,15 @@ public class HelloController  {
         ImageViewController imageViewController = loader.getController();
         imageViewController.setImageList(sortedImageList);
         imageViewController.displayList();
+        imageViewController.displayImage();
+
         stage = new Stage();
         stage.setScene(new Scene(root));
         stage.show();
     }
 
     List<String> sortImageList(List<String> imageList) {
-        List<String> sortedList = imageList.stream().sorted().collect(Collectors.toList());
-        return sortedList;
+        return imageList.stream().sorted().collect(Collectors.toList());
     }
 
 //    public void switchToSlideShow(ActionEvent e) throws IOException {
