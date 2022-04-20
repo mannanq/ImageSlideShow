@@ -9,9 +9,9 @@
    <children>
 <!--      <Button fx:id="myButton" layoutX="271.0" layoutY="301.0" mnemonicParsing="false" onAction="#displayImage" text="Button" />-->
       <ImageView fx:id="myImageView" fitHeight="255.0" fitWidth="543.0" layoutX="23.0" layoutY="57.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="88.0" AnchorPane.leftAnchor="23.0" AnchorPane.rightAnchor="34.0" AnchorPane.topAnchor="57.0" />
-      <Label layoutX="491.0" layoutY="339.0" text="Hello" />
-      <Button layoutX="323.0" layoutY="335.0" mnemonicParsing="false" onAction="#pauseSlideShow" text="Pause" />
-      <Button layoutX="251.0" layoutY="335.0" mnemonicParsing="false" onAction="#continueSlideShow" text="Play" />
-      <Button layoutX="165.0" layoutY="335.0" mnemonicParsing="false" onAction="#stopSlideShow" text="Reset" />
+      <Button fx:id="pauseButton" layoutX="473.0" layoutY="331.0" mnemonicParsing="false" onAction="#pauseSlideShow" text="Pause" />
+      <Button fx:id="playButton" layoutX="394.0" layoutY="331.0" mnemonicParsing="false" onAction="#continueSlideShow" text="Play" />
+      <Button fx:id="resetButton" layoutX="300.0" layoutY="331.0" mnemonicParsing="false" onAction="#stopSlideShow" text="Reset" />
+      <Label fx:id="progressLabel" alignment="CENTER" layoutX="30.0" layoutY="335.0" prefHeight="17.0" prefWidth="160.0" />
    </children>
 </AnchorPane>

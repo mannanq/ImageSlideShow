@@ -6,9 +6,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
-import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.DirectoryChooser;
@@ -27,25 +25,16 @@ public class HelloController  {
 
     private Scene scene;
     @FXML
-    private Label welcomeText;
-    @FXML
-    private Button button;
-    @FXML
     private AnchorPane mainAnchor;
 
     private Stage stage;
 
     public List<String> myStringList;
 
-    @FXML
-    protected void onHelloButtonClick() {
-        welcomeText.setText("Welcome to JavaFX Application!");
-    }
-
 
     @FXML
     protected void openDialog(ActionEvent event) throws IOException {
-        myStringList = new ArrayList<String>();
+        myStringList = new ArrayList<>();
         stage = (Stage) mainAnchor.getScene().getWindow();
         DirectoryChooser directoryChooser = new DirectoryChooser();
         directoryChooser.setTitle("Directory Chooser");
@@ -53,9 +42,7 @@ public class HelloController  {
         File file = directoryChooser.showDialog(stage);
 
         if(file != null) {
-            System.out.println("Path " + file.getAbsolutePath());
             Path dir = file.toPath();
-            System.out.println("dir is: " + dir);
             int depth = Integer.MAX_VALUE;
             try {
                 // input to smaller function: dir, depth
@@ -67,15 +54,12 @@ public class HelloController  {
                 e.printStackTrace();
             }
         }
-        // sort the myStringList file in ascending order! here
         if(!myStringList.isEmpty()) {
             List<String> sortedImageList = sortImageList(myStringList);
-            System.out.println("Sorted List is!!!: " + sortedImageList);
             FXMLLoader loader = new FXMLLoader(getClass().getResource("Slideshow.fxml"));
             Parent root = loader.load();
             ImageViewController imageViewController = loader.getController();
             imageViewController.setImageList(sortedImageList);
-            imageViewController.displayList();
             imageViewController.displayImage();
             stage = new Stage();
             stage.setScene(new Scene(root));
@@ -98,6 +82,9 @@ public class HelloController  {
             FileInputStream input = new FileInputStream("src/main/resources/com/example" +
                     "/directorychooser/Not_found.jpg");
             // credit for not_found file: From Alamy stock images
+            imageViewController.playButton.setVisible(false);
+            imageViewController.resetButton.setVisible(false);
+            imageViewController.pauseButton.setVisible(false);
             imageViewController.myImageView.setImage(
                     new Image(input)
             );
