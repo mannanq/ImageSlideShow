@@ -2,6 +2,7 @@ package com.example.directorychooser;
 
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -27,13 +28,13 @@ public class ImageViewController implements Initializable {
 
     Image myImage;
     int imageCounter;
+    Timeline timeline;
 
 
     public void displayImage() {
 //         first image
-//        myImageView.setImage(myImage);
-
-        Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(5), event -> {
+        myImageView.setImage(myImage);
+        timeline = new Timeline(new KeyFrame(Duration.seconds(5), event -> {
 
             try {
                 myImageView.setImage(new Image(new FileInputStream(String.valueOf(myImageList.get(imageCounter)))));
@@ -55,11 +56,27 @@ public class ImageViewController implements Initializable {
         this.myImageList =  imageList;
         try {
             myImage = new Image(new FileInputStream(String.valueOf(myImageList.get(0))));
+            System.out.println("First image set: " + myImage);
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
     }
 
+    public void pauseSlideShow(ActionEvent e) {
+        System.out.println("clicked pause");
+        timeline.pause();
+    }
+
+    public void continueSlideShow(ActionEvent e) {
+        System.out.println("click again");
+        timeline.play();
+    }
+
+    public void stopSlideShow(ActionEvent e) {
+        timeline.stop();
+        timeline.playFromStart();
+        myImageView.setImage(myImage);
+    }
 
     public void displayList() {
         System.out.println("image list exists: " + myImageList);
@@ -68,6 +85,6 @@ public class ImageViewController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        displayImage();
+//        displayImage();
     }
 }
