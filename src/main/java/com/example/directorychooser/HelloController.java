@@ -93,9 +93,6 @@ public class HelloController  {
             stage.show();
 
         }
-
-
-
     }
 
     List<String> sortImageList(List<String> imageList) {
