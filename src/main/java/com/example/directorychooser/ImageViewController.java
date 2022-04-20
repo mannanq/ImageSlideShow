@@ -5,7 +5,6 @@ import javafx.animation.Timeline;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.util.Duration;
@@ -21,11 +20,7 @@ public class ImageViewController implements Initializable {
     @FXML
 
     ImageView myImageView;
-    @FXML
-    Button myButton;
-
     private List<String> myImageList;
-
     Image myImage;
     int imageCounter;
     Timeline timeline;
@@ -43,7 +38,8 @@ public class ImageViewController implements Initializable {
             }
             imageCounter++;
             System.out.println("count: " + imageCounter);
-            // transition nicely here! (timeline.pause() or something)
+            System.out.println("myImage: " + myImage);
+            // reset to beginning
             if(imageCounter == myImageList.size()) {
                 imageCounter = 0;
             }
@@ -55,8 +51,9 @@ public class ImageViewController implements Initializable {
     public void setImageList(List<String> imageList) {
         this.myImageList =  imageList;
         try {
-            myImage = new Image(new FileInputStream(String.valueOf(myImageList.get(0))));
-            System.out.println("First image set: " + myImage);
+            if(!myImageList.isEmpty()) {
+                myImage = new Image(new FileInputStream(String.valueOf(myImageList.get(0))));
+            }
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
@@ -73,9 +70,13 @@ public class ImageViewController implements Initializable {
     }
 
     public void stopSlideShow(ActionEvent e) {
-        timeline.stop();
-        timeline.playFromStart();
         myImageView.setImage(myImage);
+        imageCounter = 0;
+        timeline.stop();
+    }
+
+    public void stopSlideShow() {
+        timeline.stop();
     }
 
     public void displayList() {
