@@ -5,6 +5,8 @@ import javafx.animation.Timeline;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.util.Duration;
@@ -18,16 +20,24 @@ import java.util.ResourceBundle;
 public class ImageViewController implements Initializable {
 
     @FXML
-
     ImageView myImageView;
+    @FXML
+    Label progressLabel;
+    @FXML
+    Button resetButton;
+    @FXML
+    Button playButton;
+    @FXML
+    Button pauseButton;
+
     private List<String> myImageList;
     Image myImage;
-    int imageCounter;
-    Timeline timeline;
+    private int imageCounter;
+    private Timeline timeline;
 
 
     public void displayImage() {
-//         first image
+            // first image
         myImageView.setImage(myImage);
         timeline = new Timeline(new KeyFrame(Duration.seconds(5), event -> {
 
@@ -36,16 +46,22 @@ public class ImageViewController implements Initializable {
             } catch (FileNotFoundException e) {
                 e.printStackTrace();
             }
+            setProgressLabelText();
             imageCounter++;
-            System.out.println("count: " + imageCounter);
-            System.out.println("myImage: " + myImage);
-            // reset to beginning
+            // reset to beginning when list reaches end
             if(imageCounter == myImageList.size()) {
                 imageCounter = 0;
             }
         }));
         timeline.setCycleCount(Timeline.INDEFINITE);
         timeline.play();
+    }
+
+    void setProgressLabelText() {
+
+        int totalImages = myImageList.size();
+
+        progressLabel.setText("Image " + (imageCounter + 1) + " of " + totalImages);
     }
 
     public void setImageList(List<String> imageList) {
@@ -60,18 +76,17 @@ public class ImageViewController implements Initializable {
     }
 
     public void pauseSlideShow(ActionEvent e) {
-        System.out.println("clicked pause");
         timeline.pause();
     }
 
     public void continueSlideShow(ActionEvent e) {
-        System.out.println("click again");
         timeline.play();
     }
 
     public void stopSlideShow(ActionEvent e) {
         myImageView.setImage(myImage);
         imageCounter = 0;
+        setProgressLabelText();
         timeline.stop();
     }
 
@@ -79,9 +94,6 @@ public class ImageViewController implements Initializable {
         timeline.stop();
     }
 
-    public void displayList() {
-        System.out.println("image list exists: " + myImageList);
-    }
 
 
     @Override
