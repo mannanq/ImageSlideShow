@@ -51,6 +51,7 @@ It is quite simple. When you run the application, a dialog box asks you to open 
 4. This should start the image slideshow if there were .jpg in your chosen folder or the directories within
 5. You can pause/reset the slideshow
 6. If the program does not find any files with ".jpg" extension, a "File Not Found" picture will be shown and no controls (play/pause/reset)
+will be present. (Credit for "File not found" picture: Alamy stock images)
 
 
 
